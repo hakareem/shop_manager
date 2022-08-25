@@ -1,3 +1,4 @@
+require_relative './lib/database_connection'
 require_relative './lib/item_repository'
 require_relative './lib/order_repository'
 
@@ -11,8 +12,54 @@ class Application
   end
 
   def run
+    @io.puts "Welcome to the Shop Manager Program"
+    @io.puts "What do you want to do?"
+    @io.puts "1. List all shop items"
+    @io.puts "2. Create a new item"
+    @io.puts "3. List all orders"
+    @io.puts "4. Create a new order"
+    selection = @io.gets.chomp.to_i
+
+  fail "Invalid Input" unless valid?(selection)
+    if selection == 1
+      @io.puts "Here is the list of all items:"
+      @item_repository.all.map do |item|
+      puts "#{item.id}. #{item.name} - #{item.unit_price} - #{item.quantity}"
+      end
+    elsif selection == 2
+      @io.puts "Please give a name"
+      name = @io.gets.chomp
+      @io.puts "Please give a unit price"
+      unit_price = @io.gets.chomp
+      @io.puts "Please give a quantity"
+      quantity = @io.gets.chomp
+      @item_repository.create(Item.new(name, unit_price, quantity))
+      @io.puts "Item created"
+    elsif selection == 3
+      @io.puts "Here is the list of all orders:"
+      @order_repository.all.each do |order|
+      puts "#{order.id}. #{order.customer_name} - #{order.date}"
+      end
+    elsif selection == 4
+      @io.puts "Please give a customer name"
+      customer_name = @io.gets.chomp
+      @io.puts "Please give a date"
+      date = @io.gets.chomp
+      @io.puts "Please give an item id"
+      item_id = @io.gets.chomp
+      @order_repository.create(Order.new(customer_name, date))
+      @io.puts "Order created"
+    end
   end
+
+  def valid?(input)
+    if input.is_a?(Integer) && input == 1 || input == 2 || input == 3 || input == 4
+      return true
+    end
+  end
+
 end
+
 
 if __FILE__ == $0
   app = Application.new(
