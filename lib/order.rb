@@ -1,9 +1,8 @@
 class Order
-  attr_accessor :id, :customer_name, :date, :item_id
+  attr_accessor :id, :customer_name, :date, :items
 
-  def initialize(customer_name, date, item_id)
+  def initialize(customer_name, date)
     @customer_name = customer_name
     @date = date
-    @item_id = item_id
   end
 end
