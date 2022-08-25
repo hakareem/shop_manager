@@ -68,11 +68,18 @@ Define the attributes of your Model class. You can usually map the table columns
 ```ruby
 # EXAMPLE
 
-# Model class
+# Model classes
 class Item
  attr_accessor :id, :name, :unit_price, :quantity
   
   def initialize(name, unit_price, quantity)
+  end
+end
+
+class Order
+  attr_accessor :id, :customer_name, :date, :item_id
+
+  def initialize(customer_name, date, item_id)
   end
 end
 
