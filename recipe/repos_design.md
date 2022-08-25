@@ -181,7 +181,32 @@ orders[2].customer_name => "Messi"
 orders[2].order_date => "1999-03-15"
 orders[2].item_id => 2
 
+# Integration Testing
 
+ # creates a new item record
+    repository = ItemRepository.new
+    item = Item.new("Chair", '15', '4')
+
+    repository.create(item)
+
+    all_items = repository.all
+    last = all_items.last
+    last.name # 'Chair'
+    last.unit_price # 15
+    last.quantity # 4
+
+
+  # creates a new order record
+    repository = OrderRepository.new
+    order = Order.new('Pepsi', '2012-12-12', '3')
+
+    repository.create(order)
+    
+    all_orders = repository.all
+    last = all_orders.last
+    last.customer_name # 'Pepsi'
+    last.date # '2012-12-12'
+    last.id # 4
 ```
 
 Encode this example as a test.
