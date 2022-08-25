@@ -8,11 +8,8 @@ class ItemRepository
 
     items = []
     result_set.each do |record|
-      item = Item.new(
-        record['name'],
-        record['unit_price'].to_i,
-        record['quantity'].to_i,
-      )
+      item = Item.new(record['name'],record['unit_price'].to_i,record['quantity'].to_i)
+      
       item.id = record['id'].to_i
       items << item
       end
@@ -21,8 +18,7 @@ class ItemRepository
 
   def create(item)
 
-    sql = 'INSERT INTO items (name, unit_price, quantity) 
-    VALUES ($1, $2, $3);'
+    sql = 'INSERT INTO items (name, unit_price, quantity) VALUES ($1, $2, $3);'
     params = [item.name, item.unit_price, item.quantity]
 
     DatabaseConnection.exec_params(sql, params)
