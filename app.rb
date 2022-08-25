@@ -3,11 +3,11 @@ require_relative './lib/order_repository'
 
 class Application
 
-  def initialize(database_name, io, album_repository, artist_repository)
+  def initialize(database_name, io, item_repository, order_repository)
     DatabaseConnection.connect(database_name)
     @io = io
-    @album_repository = album_repository
-    @artist_repository = artist_repository
+    @item_repository = item_repository
+    @order_repository = order_repository
   end
 
   def run
