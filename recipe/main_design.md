@@ -69,7 +69,7 @@ Put the different nouns in this table. Replace the example with your own nouns.
 Table: items
 id: SERIAL
 name: text
-price: money
+price: int
 quantity: int
 
 Table: orders

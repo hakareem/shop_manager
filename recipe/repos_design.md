@@ -16,11 +16,14 @@ If seed data is provided (or you already created it), you can skip this step.
 -- EXAMPLE
 TRUNCATE TABLE items, orders RESTART IDENTITY;
 
-INSERT INTO items (name, price, quantity) VALUES ('iPhone', 10, 2);
-INSERT INTO items (name, price, quantity) VALUES ('TV', 30, 4);
+INSERT INTO items (name, unit_price, quantity) VALUES ('iPhone', 20, 5);
+INSERT INTO items (name, unit_price, quantity) VALUES ('Tv', 50, 10);
+INSERT INTO items (name, unit_price, quantity) VALUES ('Apple', 10, 8);
 
-INSERT INTO orders (customer_name, order_date, item_id) VALUES ('Penaldo', '2022-12-13', 1 );
-INSERT INTO orders (customer_name, order_date, item_id) VALUES ('Penzema', '2022-08-08', 2);
+
+INSERT INTO orders (customer_name, date, item_id) VALUES ('Penaldo', '2022-03-01', 1);
+INSERT INTO orders (customer_name, date, item_id) VALUES ('Penzema', '2022-12-04', 2);
+INSERT INTO orders (customer_name, date, item_id) VALUES ('Messi', '2022-10-06', 3);
   
 ```
 
@@ -37,13 +40,22 @@ Usually, the Model class name will be the capitalised table name (single instead
 ```ruby
 # EXAMPLE
 
-# Model class
+# Model classes
 class Order
 
 end
 
-# Repository class
+# Model class
+class Item
+
+end
+
+# Repository classes
 class OrderRepository
+
+end
+
+class ItemRepository
 
 end
 
@@ -58,7 +70,10 @@ Define the attributes of your Model class. You can usually map the table columns
 
 # Model class
 class Item
-  attr_accessor :id, :name, :cohort_name
+ attr_accessor :id, :name, :unit_price, :quantity
+  
+  def initialize(name, unit_price, quantity)
+  end
 end
 
 ```
@@ -72,7 +87,7 @@ Using comments, define the method signatures (arguments and return value) and wh
 ```ruby
 # EXAMPLE
 
-# Repository class
+# Repository classes
 class ItemRepository
 
   # Selecting all records
@@ -82,6 +97,16 @@ class ItemRepository
 
    def create(item)
    # returns nothing
+   end
+end
+
+class OrderRepository
+  def all
+  #  sql = 'SELECT * FROM orders;'
+  end
+
+   def create(order)
+    #  sql = 'INSERT INTO orders (customer_name, date, item_id)
    end
 end
 ```
@@ -94,6 +119,27 @@ These examples will later be encoded as RSpec tests.
 
 ```ruby
 # EXAMPLES
+
+# Returns all item records
+repository = ItemRepository.new
+items = repository.all
+
+items.length # 3
+
+items[0].id # 1
+items[0].name # 'iPhone'
+items[0].unit_price # 20
+items[0].quantity # 5
+
+items[1].id # 2
+items[1].name # 'Tv'
+items[1].unit_price # 50
+items[1].quantity # 10
+
+items[2].id # 3
+items[2].name # 'Apple'
+items[2].unit_price # 10
+items[2].quantity # 8
 
 # 1. Get all order
 repo = OrderRepository.new

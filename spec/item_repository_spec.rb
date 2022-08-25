@@ -38,11 +38,11 @@ describe ItemRepository do
     item = double :item, name: 'Chicken', unit_price: '10', quantity: 20
 
     repository.create(item)
-
     all_items = repository.all
-    last_item = all_items.last
-    expect(last_item.name).to eq 'Chicken'
-    expect(last_item.unit_price).to eq 10
-    expect(last_item.quantity).to eq 20
+    
+    last = all_items.last
+    expect(last.name).to eq 'Chicken'
+    expect(last.unit_price).to eq 10
+    expect(last.quantity).to eq 20
   end
 end
