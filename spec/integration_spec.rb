@@ -3,7 +3,7 @@ require 'order_repository'
 
 def reset_tables
   seed_sql = File.read('spec/seeds.sql')
-  connection = PG.connect({ host: '127.0.0.1', dbname: 'shop_manager_test' })
+  connection = PG.connect({ host: '127.0.0.1', dbname: 'orders_test' })
   connection.exec(seed_sql)
 end
 
@@ -29,7 +29,7 @@ describe ItemRepository do
 
   it "creates a new shop order record" do
     repository = OrderRepository.new
-    order = Order.new('Pepsi', '2012-12-12', '3')
+    order = Order.new('Pepsi', '2012-12-12')
 
     repository.create(order)
     
@@ -37,6 +37,5 @@ describe ItemRepository do
     last = all_orders.last
     expect(last.customer_name).to eq 'Pepsi'
     expect(last.date).to eq '2012-12-12'
-    expect(last.id).to eq 4
   end
 end
