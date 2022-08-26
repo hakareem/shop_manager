@@ -27,28 +27,26 @@ class Application
       puts "#{item.id}. #{item.name} - #{item.unit_price} - #{item.quantity}"
       end
     elsif selection == 2
-      @io.puts "Please give a name"
+      @io.puts "What is the item name"
       name = @io.gets.chomp
-      @io.puts "Please give a unit price"
+      @io.puts "What is the unit price for #{name}"
       unit_price = @io.gets.chomp
-      @io.puts "Please give a quantity"
+      @io.puts "What is the quantity for #{name}"
       quantity = @io.gets.chomp
       @item_repository.create(Item.new(name, unit_price, quantity))
-      @io.puts "Item created"
+      @io.puts "#{name} item has been created"
     elsif selection == 3
       @io.puts "Here is the list of all orders:"
       @order_repository.all.each do |order|
       puts "#{order.id}. #{order.customer_name} - #{order.date}"
       end
     elsif selection == 4
-      @io.puts "Please give a customer name"
+      @io.puts "What is the customer name"
       customer_name = @io.gets.chomp
-      @io.puts "Please give a date"
+      @io.puts "What is the date of this order"
       date = @io.gets.chomp
-      @io.puts "Please give an item id"
-      item_id = @io.gets.chomp
       @order_repository.create(Order.new(customer_name, date))
-      @io.puts "Order created"
+      @io.puts "Order for #{customer_name} has been created"
     end
   end
 
